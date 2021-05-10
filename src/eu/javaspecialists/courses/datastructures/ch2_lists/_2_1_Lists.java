@@ -34,7 +34,7 @@ public class _2_1_Lists {
   }
 
   private static void randomAccessDemo() {
-    randomAccessTest(ArrayList::new); // O(1)
+    randomAccessTest(ArrayList::new); // O(1) implements RandomAccess
     randomAccessTest(Vector::new);// O(1)
     randomAccessTest(CopyOnWriteArrayList::new);// O(1)
     randomAccessTest(LinkedList::new);// O(n)
