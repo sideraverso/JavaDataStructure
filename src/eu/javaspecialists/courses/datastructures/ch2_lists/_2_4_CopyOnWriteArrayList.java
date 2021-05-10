@@ -15,6 +15,12 @@ import java.util.function.Supplier;
 public class _2_4_CopyOnWriteArrayList {
   private static final Benchmark bm = new Benchmark();
   public static void main(String... args) {
+    for (int i = 0; i < 10; i++) {
+      test();
+    }
+  }
+
+  private static void test() {
     experiment(LinkedList::new);
     experiment(ArrayList::new);
     experiment(ConcurrentLinkedQueue::new);
@@ -23,10 +29,12 @@ public class _2_4_CopyOnWriteArrayList {
 
   private static void experiment(Supplier<Collection<Integer>> supplier) {
     bm.start();
-    Collection<Integer> list = supplier.get();
+    Collection<Integer> temp = new ArrayList<>();
     for (int i = 0; i < 100_000; i++) {
-      list.add(i);
+      temp.add(i);
     }
+    Collection<Integer> list = supplier.get();
+    list.addAll(temp);
     bm.stop();
     System.out.println(list.getClass().getSimpleName() + " " + bm);
   }
